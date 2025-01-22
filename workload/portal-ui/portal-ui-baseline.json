@@ -2236,26 +2236,14 @@
                             "type": "Microsoft.Common.Section",
                             "label": "Resources tags:",
                             "visible": "[steps('resourceTagging').resourceTaggingSelection]",
-                            "elements": [
+                            "elements": [                                
                                 {
-                                    "name": "tagsWorkloadName",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Workload name:",
-                                    "toolTip": "This input will be the value of a tag named WorkloadName.",
-                                    "placeholder": "Example: Contoso-Workload",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "^[a-z0-9A-Z-]{1,256}$",
-                                        "validationMessage": "Value must be 1-256 characters."
-                                    }
-                                },
-                                {
-                                    "name": "tagsWorkloadType",
+                                    "name": "tagsClassification",
                                     "type": "Microsoft.Common.DropDown",
                                     "label": "Workload type:",
                                     "filter": true,
                                     "defaultValue": "Light",
-                                    "toolTip": "This input will be the value of a tag named WorkloadType, reference to the size of the VM for your workloads.",
+                                    "toolTip": "This input will be the value of a tag named Classification, reference to the size of the VM for your workloads.",
                                     "constraints": {
                                         "required": true,
                                         "allowedValues": [
@@ -2281,162 +2269,55 @@
                                             }
                                         ]
                                     }
-                                },
+                                },                                
                                 {
-                                    "name": "tagsDataClassificationTag",
-                                    "type": "Microsoft.Common.DropDown",
-                                    "label": "Data classification:",
-                                    "filter": true,
-                                    "defaultValue": "Non-business",
-                                    "toolTip": "This input will be the value of a tag named DataClassification, reference to the sensitivity of data hosted.",
-                                    "constraints": {
-                                        "required": true,
-                                        "allowedValues": [
-                                            {
-                                                "label": "Non-business",
-                                                "description": "",
-                                                "value": "Non-business"
-                                            },
-                                            {
-                                                "label": "Public",
-                                                "description": "",
-                                                "value": "Public"
-                                            },
-                                            {
-                                                "label": "General",
-                                                "description": "",
-                                                "value": "General"
-                                            },
-                                            {
-                                                "label": "Confidential",
-                                                "description": "",
-                                                "value": "Confidential"
-                                            },
-                                            {
-                                                "label": "Highly-confidential",
-                                                "description": "",
-                                                "value": "Highly-confidential"
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    "name": "tagsDepartmentTag",
+                                    "name": "tagsSolutionNameTag",
                                     "type": "Microsoft.Common.TextBox",
-                                    "label": "Department:",
-                                    "toolTip": "This input will be the value of a tag named Department, reference the department that owns the deployment.",
-                                    "placeholder": "Example: Contoso-AVD",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "^[a-z0-9A-Z-]{1,256}$",
-                                        "validationMessage": "Value must be 1-256 characters."
-                                    }
-                                },
-                                {
-                                    "name": "tagsCriticalityTag",
-                                    "type": "Microsoft.Common.DropDown",
-                                    "label": "Workload criticality:",
-                                    "filter": true,
-                                    "defaultValue": "Low",
-                                    "toolTip": "This input will be the value of a tag named Criticality, reference to the criticality of the workload.",
-                                    "constraints": {
-                                        "required": true,
-                                        "allowedValues": [
-                                            {
-                                                "label": "Low",
-                                                "description": "",
-                                                "value": "Low"
-                                            },
-                                            {
-                                                "label": "Medium",
-                                                "description": "",
-                                                "value": "Medium"
-                                            },
-                                            {
-                                                "label": "High",
-                                                "description": "",
-                                                "value": "High"
-                                            },
-                                            {
-                                                "label": "Mission-critical",
-                                                "description": "",
-                                                "value": "Mission-critical"
-                                            },
-                                            {
-                                                "label": "Custom",
-                                                "description": "",
-                                                "value": "Custom"
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    "name": "tagsCustomWorkloadCriticality",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Custom workload criticality:",
-                                    "visible": "[equals(steps('resourceTagging').resourceTags.tagsCriticalityTag, 'Custom')]",
-                                    "toolTip": "This input will be the value of a tag named Criticality, reference to a custom criticality for the workload.",
-                                    "placeholder": "Example: Contoso-Criticality",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "^[a-z0-9A-Z-]{1,256}$",
-                                        "validationMessage": "Value must be 1-256 characters."
-                                    }
-                                },
-                                {
-                                    "name": "tagsApplicationNameTag",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Application name:",
-                                    "toolTip": "This input will be the value of a tag named ApplicationName, reference details about the application.",
+                                    "label": "Solution name:",
+                                    "toolTip": "This input will be the value of a tag named SolutionName, reference details about the application.",
                                     "placeholder": "Example: Contoso-App",
                                     "constraints": {
-                                        "required": true,
-                                        "regex": "^[a-z0-9A-Z-]{1,256}$",
-                                        "validationMessage": "Value must be 1-256 characters."
+                                        "required": true
                                     }
                                 },
                                 {
-                                    "name": "tagsWorkloadSlaTag",
+                                    "name": "tagsServiceOwnerTag",
                                     "type": "Microsoft.Common.TextBox",
-                                    "label": "Workload SLA:",
-                                    "toolTip": "This input will be the value of a tag named ServiceClass, reference to the service level agreement level of the worload.",
-                                    "placeholder": "Example: Contoso-SLA",
+                                    "label": "Service Owner:",
+                                    "toolTip": "This input will be the value of a tag named ServiceOwner, reference to the Digital health employee owner of the AVD deployment.",
+                                    "placeholder": "Example: axel.steiner@interiorhealth.ca",
                                     "constraints": {
-                                        "required": true,
-                                        "regex": "^[a-z0-9A-Z-]{1,256}$",
-                                        "validationMessage": "Value must be 1-256 characters."
+                                        "required": true                                       
                                     }
                                 },
                                 {
-                                    "name": "tagsOpsTeamTag",
+                                    "name": "tagsAssignmentGroupTag",
                                     "type": "Microsoft.Common.TextBox",
-                                    "label": "Operations team:",
-                                    "toolTip": "This input will be the value of a tag named OpsTeam, reference to the team accountable for day-to-day operations.",
-                                    "placeholder": "Example: workload-admins@Contoso.com",
+                                    "label": "Assignment group:",
+                                    "toolTip": "This input will be the value of a tag named AssignmentGroup, reference to the team accountable for day-to-day operations.",
+                                    "placeholder": "Example: IHA-Workplace Technologies",
                                     "constraints": {
                                         "required": true
                                     }
                                 },
                                 {
-                                    "name": "tagsOwnerTag",
+                                    "name": "tagsOwnerBCHOTag",
                                     "type": "Microsoft.Common.TextBox",
-                                    "label": "Owner:",
-                                    "toolTip": "This input will be the value of a tag named Owner, reference to the organizational owner of the Azure Virtual Desktop deployment.",
-                                    "placeholder": "Example: workload-owner@Contoso.com",
+                                    "label": "Owner BCHO:",
+                                    "toolTip": "This input will be the value of a tag named BCHO Owner, reference to the organizational owner of the Azure Virtual Desktop deployment.",
+                                    "placeholder": "Example: IHA_",
                                     "constraints": {
                                         "required": true
                                     }
                                 },
                                 {
-                                    "name": "tagsCostCenterTag",
+                                    "name": "tagsBCHOCostCenterTag",
                                     "type": "Microsoft.Common.TextBox",
-                                    "label": "Cost center:",
-                                    "toolTip": "This input will be the value of a tag named CostCenter, reference to the cost center of owner team.",
+                                    "label": "BCHO Cost center:",
+                                    "toolTip": "This input will be the value of a tag named BCHOCostCenter, reference to the cost center of owner team.",
                                     "placeholder": "Example: Contoso-CC",
                                     "constraints": {
-                                        "required": true,
-                                        "regex": "^[a-z0-9A-Z-]{1,256}$",
-                                        "validationMessage": "Value must be 1-256 characters."
+                                        "required": true                                        
                                     }
                                 }
                             ]
@@ -2537,17 +2418,12 @@
                 "msixFileShareCustomName": "[if(equals(steps('resourceNaming').resourceNamingSelection, true), steps('resourceNaming').resourceNamingStorage.msixFileShareCustomName, 'no')]",
                 "avdWrklKvPrefixCustomName": "[if(equals(steps('resourceNaming').resourceNamingSelection, true), steps('resourceNaming').resourceNamingAvdManagementPlane.workloadKvCustomName, 'no')]",
                 "createResourceTags": "[steps('resourceTagging').resourceTaggingSelection]",
-                "workloadNameTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsWorkloadName, 'no')]",
-                "workloadTypeTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsWorkloadType, 'Light')]",
-                "dataClassificationTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsDataClassificationTag, 'Non-business')]",
-                "departmentTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsDepartmentTag, 'no')]",
-                "workloadCriticalityTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsCriticalityTag, 'Low')]",
-                "workloadCriticalityCustomValueTag": "[if(equals(steps('resourceTagging').resourceTags.tagsCriticalityTag, 'Custom'), steps('resourceTagging').resourceTags.tagsCustomWorkloadCriticality, 'Low')]",
-                "applicationNameTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsApplicationNameTag, 'no')]",
-                "workloadSlaTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsWorkloadSlaTag, 'no')]",
-                "opsTeamTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsOpsTeamTag, 'no')]",
-                "ownerTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsOwnerTag, 'no')]",
-                "costCenterTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsCostCenterTag, 'no')]",
+                "ClassificationTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsClassification, 'Light')]",
+                "SolutionNameTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsSolutionNameTag, 'no')]",
+                "ServiceOwnerTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsServiceOwnerTag, 'no')]",
+                "AssignmentGroupTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsAssignmentGroupTag, 'no')]",
+                "OwnerBCHOTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsOwnerBCHOTag, 'no')]",
+                "BCHOCostCenterTag": "[if(equals(steps('resourceTagging').resourceTaggingSelection, true), steps('resourceTagging').resourceTags.tagsBCHOCostCenterTag, 'no')]",
                 "securityPrincipalId": "[if(steps('identity').identityAvdAccess.identityAvdUserAccessGroupCheckBox, steps('identity').identityAvdAccess.identityAvdUserAccessGroupTextBox2, steps('identity').identityAvdAccess.identityAvdUserAccessGroupDropDown.id)]",
                 "securityPrincipalName": "[if(steps('identity').identityAvdAccess.identityAvdUserAccessGroupCheckBox, steps('identity').identityAvdAccess.identityAvdUserAccessGroupTextBox1, steps('identity').identityAvdAccess.identityAvdUserAccessGroupDropDown.name)]",
                 "avdDeployMonitoring": "[steps('monitoring').deployMonitoring]",
