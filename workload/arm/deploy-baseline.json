@@ -864,14 +864,21 @@
         "description": "Apply tags on resources and resource groups. (Default: false)"
       }
     },
-    "workloadNameTag": {
+    "AssignmentGroupTag": {
       "type": "string",
-      "defaultValue": "Contoso-Workload",
+      "defaultValue": "workload-admins@Contoso.com",
       "metadata": {
-        "description": "The name of workload for tagging purposes. (Default: Contoso-Workload)"
+        "description": "Team accountable for day-to-day operations. (workload-admins@Contoso.com)"
       }
     },
-    "workloadTypeTag": {
+	"BCHOCostCenterTag": {
+      "type": "string",
+      "defaultValue": "Contoso-CC",
+      "metadata": {
+        "description": "BCHO Cost center of owner team. (Default: Contoso-CC)"
+      }
+    },
+	"ClassificationTag": {
       "type": "string",
       "defaultValue": "Light",
       "allowedValues": [
@@ -884,81 +891,25 @@
         "description": "Reference to the size of the VM for your workloads (Default: Light)"
       }
     },
-    "dataClassificationTag": {
+    "OwnerBCHOTag": {
       "type": "string",
-      "defaultValue": "Non-business",
-      "allowedValues": [
-        "Non-business",
-        "Public",
-        "General",
-        "Confidential",
-        "Highly-confidential"
-      ],
+      "defaultValue": "IHA_",
       "metadata": {
-        "description": "Sensitivity of data hosted (Default: Non-business)"
+        "description": "Health authority owner of the AVD deployment. (Default: IHA_)"
       }
     },
-    "departmentTag": {
+    "ServiceOwnerTag": {
       "type": "string",
-      "defaultValue": "Contoso-AVD",
+      "defaultValue": "axel.steiner@interiorhealth.ca",
       "metadata": {
-        "description": "Department that owns the deployment, (Dafult: Contoso-AVD)"
+        "description": "Digital health employee owner of the AVD deployment. (Default: axel.steiner@interiorhealth.ca)"
       }
     },
-    "workloadCriticalityTag": {
+    "SolutionNameTag": {
       "type": "string",
-      "defaultValue": "Low",
-      "allowedValues": [
-        "Low",
-        "Medium",
-        "High",
-        "Mission-critical",
-        "Custom"
-      ],
+      "defaultValue": "AVD",
       "metadata": {
-        "description": "Criticality of the workload. (Default: Low)"
-      }
-    },
-    "workloadCriticalityCustomValueTag": {
-      "type": "string",
-      "defaultValue": "Contoso-Critical",
-      "metadata": {
-        "description": "Tag value for custom criticality value. (Default: Contoso-Critical)"
-      }
-    },
-    "applicationNameTag": {
-      "type": "string",
-      "defaultValue": "Contoso-App",
-      "metadata": {
-        "description": "Details about the application."
-      }
-    },
-    "workloadSlaTag": {
-      "type": "string",
-      "defaultValue": "Contoso-SLA",
-      "metadata": {
-        "description": "Service level agreement level of the worload. (Contoso-SLA)"
-      }
-    },
-    "opsTeamTag": {
-      "type": "string",
-      "defaultValue": "workload-admins@Contoso.com",
-      "metadata": {
-        "description": "Team accountable for day-to-day operations. (workload-admins@Contoso.com)"
-      }
-    },
-    "ownerTag": {
-      "type": "string",
-      "defaultValue": "workload-owner@Contoso.com",
-      "metadata": {
-        "description": "Organizational owner of the AVD deployment. (Default: workload-owner@Contoso.com)"
-      }
-    },
-    "costCenterTag": {
-      "type": "string",
-      "defaultValue": "Contoso-CC",
-      "metadata": {
-        "description": "Cost center of owner team. (Default: Contoso-CC)"
+        "description": "Name of application or service. (Default: AVD)"
       }
     },
     "time": {
@@ -1700,7 +1651,7 @@
     "varAllDnsServers": "[format('{0},168.63.129.16', parameters('customDnsIps'))]",
     "varDnsServers": "[if(empty(parameters('customDnsIps')), createArray(), split(variables('varAllDnsServers'), ','))]",
     "varCreateVnetPeering": "[if(not(empty(parameters('existingHubVnetResourceId'))), true(), false())]",
-    "varCustomResourceTags": "[if(parameters('createResourceTags'), createObject('WorkloadName', parameters('workloadNameTag'), 'WorkloadType', parameters('workloadTypeTag'), 'DataClassification', parameters('dataClassificationTag'), 'Department', parameters('departmentTag'), 'Criticality', if(equals(parameters('workloadCriticalityTag'), 'Custom'), parameters('workloadCriticalityCustomValueTag'), parameters('workloadCriticalityTag')), 'ApplicationName', parameters('applicationNameTag'), 'ServiceClass', parameters('workloadSlaTag'), 'OpsTeam', parameters('opsTeamTag'), 'Owner', parameters('ownerTag'), 'CostCenter', parameters('costCenterTag')), createObject())]",
+    "varCustomResourceTags": "[if(parameters('createResourceTags'), createObject('AssignmentGroup', parameters('AssignmentGroupTag'),'BCHOCostCenter', parameters('BCHOCostCenterTag'),'Classification', parameters('ClassificationTag'), 'OwnerBCHO', parameters('OwnerBCHOTag'), 'ServiceOwner', parameters('ServiceOwnerTag'), 'SolutionName', parameters('SolutionNameTag')), createObject())]",
     "varAllComputeStorageTags": {
       "DomainName": "[parameters('identityDomainName')]",
       "IdentityServiceProvider": "[parameters('avdIdentityServiceProvider')]"
