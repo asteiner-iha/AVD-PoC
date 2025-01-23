@@ -439,11 +439,8 @@ param ztKvPrefixCustomName string = 'kv-key'
 //
 // Resource tagging
 //
-@sys.description('Apply tags on resources and resource groups. (Default: false)')
-param createResourceTags bool = false
-
-@sys.description('The name of workload for tagging purposes. (Default: Contoso-Workload)')
-param workloadNameTag string = 'Contoso-Workload'
+@sys.description('Apply tags on resources and resource groups. (Default: true)')
+param createResourceTags bool = true
 
 @allowed([
   'Light'
@@ -451,49 +448,32 @@ param workloadNameTag string = 'Contoso-Workload'
   'High'
   'Power'
 ])
-@sys.description('Reference to the size of the VM for your workloads (Default: Light)')
-param workloadTypeTag string = 'Light'
+@sys.description('Classification of workloads.')
+param ClassificationTag string = 'High'
 
 @allowed([
-  'Non-business'
-  'Public'
-  'General'
-  'Confidential'
-  'Highly-confidential'
+  'Prod'
+  'Dev'
+  'Test'
+  'Dev/Test'
 ])
-@sys.description('Sensitivity of data hosted (Default: Non-business)')
-param dataClassificationTag string = 'Non-business'
+@sys.description('App environment.')
+param EnvironmentTag string = 'Dev/Test'
 
-@sys.description('Department that owns the deployment, (Dafult: Contoso-AVD)')
-param departmentTag string = 'Contoso-AVD'
+@sys.description('Department that owns the deployment, (Default: Contoso-AVD)')
+param AssignmentGroupTag string = 'Contoso-AVD'
 
-@allowed([
-  'Low'
-  'Medium'
-  'High'
-  'Mission-critical'
-  'Custom'
-])
-@sys.description('Criticality of the workload. (Default: Low)')
-param workloadCriticalityTag string = 'Low'
+@sys.description('Name of application.')
+param SolutionNameTag string = 'AVD-PoC'
 
-@sys.description('Tag value for custom criticality value. (Default: Contoso-Critical)')
-param workloadCriticalityCustomValueTag string = 'Contoso-Critical'
+@sys.description('Organizational owner of the AVD deployment.')
+param ServiceOwnerTag string = 'axel.steiner@interiorhealth.ca'
 
-@sys.description('Details about the application.')
-param applicationNameTag string = 'Contoso-App'
-
-@sys.description('Service level agreement level of the worload. (Contoso-SLA)')
-param workloadSlaTag string = 'Contoso-SLA'
-
-@sys.description('Team accountable for day-to-day operations. (workload-admins@Contoso.com)')
-param opsTeamTag string = 'workload-admins@Contoso.com'
-
-@sys.description('Organizational owner of the AVD deployment. (Default: workload-owner@Contoso.com)')
-param ownerTag string = 'workload-owner@Contoso.com'
+@sys.description('Health authority owner of the AVD deployment. (Default: IHA_)')
+param OwnerBCHOTag string = 'IHA_'
 
 @sys.description('Cost center of owner team. (Default: Contoso-CC)')
-param costCenterTag string = 'Contoso-CC'
+param BCHOCostCenterTag string = 'Contoso-CC'
 //
 
 //@sys.description('Remove resources not needed afdter deployment. (Default: false)')
@@ -952,16 +932,13 @@ var varCreateVnetPeering = !empty(existingHubVnetResourceId) ? true : false
 // Tag Exclude-${varAvdScalingPlanName} is used by scaling plans to exclude session hosts from scaling. Exmaple: Exclude-vdscal-eus2-app1-dev-001
 var varCustomResourceTags = createResourceTags
   ? {
-      WorkloadName: workloadNameTag
-      WorkloadType: workloadTypeTag
-      DataClassification: dataClassificationTag
-      Department: departmentTag
-      Criticality: (workloadCriticalityTag == 'Custom') ? workloadCriticalityCustomValueTag : workloadCriticalityTag
-      ApplicationName: applicationNameTag
-      ServiceClass: workloadSlaTag
-      OpsTeam: opsTeamTag
-      Owner: ownerTag
-      CostCenter: costCenterTag
+      BCHOcostCenter: BCHOcostCenterTag
+      OwnerBCHO: OwnerBCHOTag
+      AssignmentGroup: AssignmentGroupTag 
+      SolutionName: SolutionNameTag
+      Environment: EnvironmentTag
+      ServiceOwner: ServiceOwnerTag
+      Classification: ClassificationTag
     }
   : {}
 var varAllComputeStorageTags = {
